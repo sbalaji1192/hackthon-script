@@ -29,6 +29,7 @@
           eventString
         }
       });
-    }
+    },
+    props: {}
   };
 })(window);
