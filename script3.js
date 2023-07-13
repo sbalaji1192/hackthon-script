@@ -15,11 +15,11 @@
     onPropsChange: (fn) => {
       propSubscribers.push(fn);
     },
-    upateProps: (obj) => {
+    updateProps: (obj) => {
       global.postMessage({
         type: "update",
         data: obj
-      });
+      }, "*");
     },
     triggerEvent: (eventName, eventString) => {
       global.postMessage({
@@ -28,7 +28,7 @@
           eventName,
           eventString
         }
-      });
+      }, "*");
     },
     props: {}
   };
