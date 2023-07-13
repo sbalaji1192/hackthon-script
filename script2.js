@@ -16,13 +16,13 @@
       propSubscribers.push(fn);
     },
     upateProps: (obj) => {
-      global.parent.postMessage({
+      global.postMessage({
         type: "update",
         data: obj
       });
     },
     triggerEvent: (eventName, eventString) => {
-      global.parent.postMessage({
+      global.postMessage({
         type: "event",
         data: {
           eventName,
