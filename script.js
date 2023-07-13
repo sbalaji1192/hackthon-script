@@ -2,7 +2,7 @@
   const propSubscribers = [];
 
   global.addEventListener("message", (event) => {
-    global.appsmith.props = event.data.props;
+    global.appsmith.props = event.data.props || {};
     
     propSubscribers.forEach((fn) => {
       if (event.source === global.parent) {
