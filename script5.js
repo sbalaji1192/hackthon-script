@@ -1,14 +1,18 @@
 ((global) => {
   const propSubscribers = [];
+  let onReady;
 
   global.addEventListener("message", (event) => {
     global.appsmith.props = event.data.props || {};
-    
-    propSubscribers.forEach((fn) => {
-      if (event.source === global.parent) {
-        fn(event.data.props);
-      }
-    });
+    if (event.type === "ready") {
+      onReady && onReady();
+    } else {
+      propSubscribers.forEach((fn) => {
+        if (event.source === global.parent) {
+          fn(event.data.props);
+        }
+      });
+    }
   });
 
   global.appsmith = {
@@ -30,6 +34,9 @@
         }
       }, "*");
     },
-    props: {}
+    props: {},
+    onReady: (fn) => {
+      onReady = fn;
+    }
   };
 })(window);
