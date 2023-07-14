@@ -4,7 +4,7 @@
 
   global.addEventListener("message", (event) => {
     global.appsmith.props = event.data.props || {};
-    if (event.type === "ready") {
+    if (event.data.type === "ready") {
       onReady && onReady();
     } else {
       propSubscribers.forEach((fn) => {
