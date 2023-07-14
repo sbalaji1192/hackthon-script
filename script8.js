@@ -3,7 +3,9 @@
   let onReady;
 
   global.addEventListener("message", (event) => {
-    window.appsmith.props = event.data.props || {};
+    if (event.data.props) {
+      window.appsmith.props = event.data.props || {};
+    }
     if (event.data.type === "ready") {
       onReady && onReady();
     } else {
