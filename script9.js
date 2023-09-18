@@ -27,12 +27,12 @@
         data: obj
       }, "*");
     },
-    triggerEvent: (eventName, eventString) => {
+    triggerEvent: (eventName, contextObj) => {
        global.parent.postMessage({
         type: "event",
         data: {
           eventName,
-          eventString
+          contextObj
         }
       }, "*");
     },
