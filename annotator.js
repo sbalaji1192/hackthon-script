@@ -763,7 +763,7 @@ var Annotator = /** @class */ (function(_super) {
     _this.position = { x: 0, y: 0 };
     _this.scale = { x: 0.5, y: 0.5 };
     _this.state = {
-      isAnnotating: false,
+      isAnnotating: true,
       showAnnotation: false,
       hover: false,
       mouse_down: false,
