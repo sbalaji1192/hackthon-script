@@ -105,6 +105,7 @@ var Box = /** @class */ (function() {
   };
   return Box;
 })();
+
 var Annotator = /** @class */ (function(_super) {
   tslib_1.__extends(Annotator, _super);
   function Annotator(props) {
@@ -608,9 +609,9 @@ var Annotator = /** @class */ (function(_super) {
           _this.annotatingBox.w,
           _this.annotatingBox.h
         );
-        _this.ctx.fillStyle = tinycolor2(appsmith?.theme?.primaryColor).lighten(
-          70
-        );
+        _this.ctx.fillStyle = tinycolor2(appsmith?.theme?.primaryColor)
+          .lighten(70)
+          .toString();
         _this.ctx.fillRect(
           _this.annotatingBox.x,
           _this.annotatingBox.y,
@@ -626,18 +627,20 @@ var Annotator = /** @class */ (function(_super) {
         var fontSize = 30 / _this.scale.x;
         if (box.chosen) {
           if (box.hover) {
-            _this.ctx.strokeStyle = tinycolor2(
-              appsmith?.theme?.primaryColor
-            ).lighten(50);
+            _this.ctx.strokeStyle = tinycolor2(appsmith?.theme?.primaryColor)
+              .lighten(50)
+              .toString();
             _this.ctx.lineWidth = 2 / _this.scale.x;
             _this.ctx.strokeRect(box.x, box.y, box.w, box.h);
           } else {
             _this.ctx.lineWidth = 5;
-            _this.ctx.strokeStyle = "#555";
+            _this.ctx.strokeStyle = appsmith?.theme?.primaryColor;
             _this.ctx.strokeRect(box.x, box.y, box.w, box.h);
-            _this.ctx.fillStyle = "rgba(255, 100, 145, 0.45)";
+            _this.ctx.fillStyle = tinycolor2(appsmith?.theme?.primaryColor)
+              .lighten(55)
+              .toString();
             _this.ctx.fillRect(box.x, box.y, box.w, box.h);
-            _this.ctx.strokeStyle = "rgba(255, 100, 100, 1)";
+            _this.ctx.strokeStyle = appsmith?.theme?.primaryColor;
             _this.ctx.lineWidth = 10 / _this.scale.x;
             _this.ctx.strokeRect(box.x, box.y, box.w, box.h);
             _this.ctx.strokeStyle = "rgba(255, 255, 255, 0.7)";
@@ -662,7 +665,9 @@ var Annotator = /** @class */ (function(_super) {
           _this.ctx.lineWidth = 5;
           _this.ctx.strokeStyle = "#555";
           _this.ctx.strokeRect(box.x, box.y, box.w, box.h);
-          _this.ctx.fillStyle = "rgba(255, 100, 145, 0.3)";
+          _this.ctx.fillStyle = tinycolor2(appsmith?.theme?.primaryColor)
+            .lighten(70)
+            .toString();
           _this.ctx.fillRect(box.x, box.y, box.w, box.h);
           // text
           _this.ctx.fillStyle = "rgba(40, 40, 40, 0.8)";
