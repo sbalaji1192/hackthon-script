@@ -5,6 +5,8 @@ import {
   Button,
   Form,
 } from "https://cdn.jsdelivr.net/npm/antd@5.12.8/+esm";
+import tinycolor2 from "https://cdn.jsdelivr.net/npm/tinycolor2@1.6.0/+esm";
+
 var Option = Select.Option;
 var MARGIN = 16;
 var BOX_MIN_LENGTH = 16;
@@ -598,15 +600,17 @@ var Annotator = /** @class */ (function(_super) {
       );
       if (_this.annotatingBox !== undefined) {
         _this.ctx.save();
-        _this.ctx.fillStyle = "#f00";
-        _this.ctx.strokeStyle = "#333";
+        _this.ctx.fillStyle = appsmith?.theme?.primaryColor;
+        _this.ctx.strokeStyle = appsmith?.theme?.backgroundColor;
         _this.ctx.strokeRect(
           _this.annotatingBox.x,
           _this.annotatingBox.y,
           _this.annotatingBox.w,
           _this.annotatingBox.h
         );
-        _this.ctx.fillStyle = "rgba(250, 50, 50, 0.3)";
+        _this.ctx.fillStyle = tinycolor2(appsmith?.theme?.primaryColor).lighten(
+          70
+        );
         _this.ctx.fillRect(
           _this.annotatingBox.x,
           _this.annotatingBox.y,
@@ -616,13 +620,15 @@ var Annotator = /** @class */ (function(_super) {
         _this.ctx.restore();
         _this.ctx.globalAlpha = 0.3;
       }
-      _this.ctx.fillStyle = "#f00";
+      _this.ctx.fillStyle = appsmith?.theme?.primaryColor;
       for (var i = 0; i < _this.boxes.length; i++) {
         var box = _this.boxes[i];
         var fontSize = 30 / _this.scale.x;
         if (box.chosen) {
           if (box.hover) {
-            _this.ctx.strokeStyle = "rgba(255, 0, 0, 0.5)";
+            _this.ctx.strokeStyle = tinycolor2(
+              appsmith?.theme?.primaryColor
+            ).lighten(50);
             _this.ctx.lineWidth = 2 / _this.scale.x;
             _this.ctx.strokeRect(box.x, box.y, box.w, box.h);
           } else {
