@@ -302,6 +302,7 @@ var Annotator = /** @class */ (function(_super) {
       _this.registerEvent(_this.canvas, "wheel", _this.onWheel);
     };
     _this.onWheel = function(e) {
+      return;
       if (_this.canvas == null) {
         return;
       }
@@ -436,6 +437,7 @@ var Annotator = /** @class */ (function(_super) {
       });
     };
     _this.gesturePinchZoom = function(event) {
+      return;
       var zoom = 0;
       if (event.targetTouches.length >= 2) {
         var p1 = event.targetTouches[0];
@@ -452,6 +454,7 @@ var Annotator = /** @class */ (function(_super) {
       return zoom * 0.2;
     };
     _this.doZoom = function(zoom, x, y) {
+      return;
       if (x === void 0) {
         x = null;
       }
@@ -582,8 +585,8 @@ var Annotator = /** @class */ (function(_super) {
         _this.bg,
         0,
         0,
-        Math.min(_this.props.width, 600),
-        Math.min(_this.props.height, 600),
+        _this.props.width,
+        _this.props.height,
         0,
         0,
         _this.props.width,
@@ -601,16 +604,16 @@ var Annotator = /** @class */ (function(_super) {
       );
       if (_this.annotatingBox !== undefined) {
         _this.ctx.save();
-        _this.ctx.fillStyle = appsmith?.theme?.primaryColor;
-        _this.ctx.strokeStyle = appsmith?.theme?.backgroundColor;
+        _this.ctx.fillStyle = _this.props.mainColor;
+        _this.ctx.strokeStyle = _this.props.mainColor;
         _this.ctx.strokeRect(
           _this.annotatingBox.x,
           _this.annotatingBox.y,
           _this.annotatingBox.w,
           _this.annotatingBox.h
         );
-        _this.ctx.fillStyle = tinycolor2(appsmith?.theme?.primaryColor)
-          .lighten(70)
+        _this.ctx.fillStyle = tinycolor2(_this.props.mainColor)
+          .setAlpha(0.2)
           .toString();
         _this.ctx.fillRect(
           _this.annotatingBox.x,
@@ -621,40 +624,30 @@ var Annotator = /** @class */ (function(_super) {
         _this.ctx.restore();
         _this.ctx.globalAlpha = 0.3;
       }
-      _this.ctx.fillStyle = appsmith?.theme?.primaryColor;
+      _this.ctx.fillStyle = _this.props.mainColor;
       for (var i = 0; i < _this.boxes.length; i++) {
         var box = _this.boxes[i];
-        var fontSize = 30 / _this.scale.x;
+        var fontSize = _this.props.labelSize || 30 / _this.scale.x;
         if (box.chosen) {
           if (box.hover) {
-            _this.ctx.strokeStyle = tinycolor2(appsmith?.theme?.primaryColor)
-              .lighten(50)
+            _this.ctx.strokeStyle = tinycolor2(_this.props.mainColor)
+              .setAlpha(0.3)
               .toString();
             _this.ctx.lineWidth = 2 / _this.scale.x;
             _this.ctx.strokeRect(box.x, box.y, box.w, box.h);
           } else {
-            _this.ctx.lineWidth = 5;
-            _this.ctx.strokeStyle = appsmith?.theme?.primaryColor;
+            _this.ctx.lineWidth = 1;
+            _this.ctx.strokeStyle = _this.props.mainColor;
             _this.ctx.strokeRect(box.x, box.y, box.w, box.h);
-            _this.ctx.fillStyle = tinycolor2(appsmith?.theme?.primaryColor)
-              .lighten(55)
+            _this.ctx.fillStyle = tinycolor2(_this.props.mainColor)
+              .setAlpha(0.3)
               .toString();
             _this.ctx.fillRect(box.x, box.y, box.w, box.h);
-            _this.ctx.strokeStyle = appsmith?.theme?.primaryColor;
-            _this.ctx.lineWidth = 10 / _this.scale.x;
-            _this.ctx.strokeRect(box.x, box.y, box.w, box.h);
-            _this.ctx.strokeStyle = "rgba(255, 255, 255, 0.7)";
-            _this.ctx.lineWidth = 4 / _this.scale.x;
-            _this.ctx.strokeRect(
-              box.x + margin,
-              box.y + margin,
-              box.w - margin * 2,
-              box.h - margin * 2
-            );
+
             // text
-            _this.ctx.fillStyle = "rgba(40, 40, 40, 0.8)";
+            _this.ctx.fillStyle = _this.props.labelColor;
             _this.ctx.textAlign = "center";
-            _this.ctx.font = fontSize + "px Ubuntu";
+            _this.ctx.font = fontSize + "px system-ui";
             _this.ctx.fillText(
               box.annotation,
               box.x + box.w / 2,
@@ -662,38 +655,34 @@ var Annotator = /** @class */ (function(_super) {
             );
           }
         } else if (box.hover) {
-          _this.ctx.lineWidth = 5;
-          _this.ctx.strokeStyle = "#555";
+          _this.ctx.lineWidth = 1;
+          _this.ctx.strokeStyle = _this.props.mainColor;
           _this.ctx.strokeRect(box.x, box.y, box.w, box.h);
-          _this.ctx.fillStyle = tinycolor2(appsmith?.theme?.primaryColor)
-            .lighten(70)
+          _this.ctx.fillStyle = tinycolor2(_this.props.mainColor)
+            .setAlpha(0.3)
             .toString();
           _this.ctx.fillRect(box.x, box.y, box.w, box.h);
           // text
-          _this.ctx.fillStyle = "rgba(40, 40, 40, 0.8)";
+          _this.ctx.fillStyle = _this.props.labelColor;
           _this.ctx.textAlign = "center";
-          _this.ctx.font = fontSize + "px Ubuntu";
+          _this.ctx.font = fontSize + "px system-ui";
           _this.ctx.fillText(
             box.annotation,
             box.x + box.w / 2,
             box.y + box.h / 2 + fontSize / 2
           );
         } else {
-          _this.ctx.lineWidth = 5;
-          _this.ctx.strokeStyle = "#555";
+          _this.ctx.lineWidth = 1;
+          _this.ctx.strokeStyle = _this.props.mainColor;
           _this.ctx.strokeRect(box.x, box.y, box.w, box.h);
-          _this.ctx.fillStyle = "rgba(200, 200, 200, 0.5)";
-          _this.ctx.lineWidth = 3 / _this.scale.x;
-          _this.ctx.strokeRect(
-            box.x + margin,
-            box.y + margin,
-            box.w - margin * 2,
-            box.h - margin * 2
-          );
+          _this.ctx.fillStyle = tinycolor2(_this.props.mainColor)
+            .setAlpha(0.3)
+            .toString();
+          _this.ctx.fillRect(box.x, box.y, box.w, box.h);
           // text
-          _this.ctx.fillStyle = "rgba(40, 40, 40, 0.3)";
+          _this.ctx.fillStyle = _this.props.labelColor;
           _this.ctx.textAlign = "center";
-          _this.ctx.font = fontSize + "px Ubuntu";
+          _this.ctx.font = fontSize + "px system-ui";
           _this.ctx.fillText(
             box.annotation,
             box.x + box.w / 2,
