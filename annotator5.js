@@ -1115,7 +1115,7 @@ var Annotator = /** @class */ (function(_super) {
                 if (_this.chosenBox !== undefined) {
                   _this.chosenBox.annotation = value;
                   _this.setState({ annotation: value });
-                  _this.props.onUpdate?.(this.boxes);
+                  _this.props.onUpdate?.(_this.boxes);
                 }
               },
               disabled: isLocked,
